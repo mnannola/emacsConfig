@@ -1,0 +1,125 @@
+git log
+ls
+git status
+git checkout develop
+git pull
+eshell
+eshell exit
+ls
+ls
+ls
+ls
+cd app
+cd lib
+ls
+cd routes
+emacs map.js
+ls
+cd elpa/js2-mode-20131219.658/
+pwd
+cd ..
+cd js2-mode-20131219.658/
+ls
+mv js2-mode.el ../../js2.el
+cd ..
+cd ..
+ls
+emacs init.el
+ls
+emacs
+git status
+git pull
+git status
+git status
+git reset --HARD origin/develop
+git reset --hard origin/develop
+git status
+exit
+node app.js
+node app.js
+node app.js
+..
+cd app
+cd templates/
+ls
+mv index.hbs user.hbs
+ls
+exit
+cd ..
+exit
+cd ..
+cd ..
+grep ?
+grep --help
+ls
+mv artstis.songs.hbs artists.songs.hbs
+ls
+exit
+cd ..
+cd ..
+cd ..
+ls
+cd app
+cd templates
+ls
+mkdir artists
+mv artists.songs.hbs artists/songs.hbs
+ls
+cd artsits
+ls
+cd artists
+ls
+ls
+exit
+ls
+cd artists
+ls
+exit
+cd repo
+ls
+mkdir gam-comps
+ls
+cd gam-comps/
+ls
+bower install bootstrap
+ls
+cd bower_components/
+ls
+cd boot
+cd bootstrap/
+ls
+cd js
+ls
+cd ..
+head dist/
+cd dist
+ls
+cd js
+ls
+cd ..
+cd ../../..
+ls
+cd bower_components/
+ls
+cd jq
+cd jquery/
+ls
+cd ..
+ls
+cd bootstrap/
+ls
+cd less
+ls
+cd dist
+cd ..
+ls
+cd dist
+ls
+cd css
+ls
+git status
+git remotes -v
+git remote -v
+exit
+git diff RET-4180 develop reset_password_controller.js 
+exit 
