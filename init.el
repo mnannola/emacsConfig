@@ -6,6 +6,7 @@
 ;; -- Global Settings --
 ;; ---------------------
 (add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/elpa/")
 (require 'cl)
 (require 'ido)
 (require 'ffap)
@@ -17,6 +18,7 @@
 (require 'whitespace)
 (require 'dired-x)
 (require 'compile)
+
 (ido-mode t)
 (menu-bar-mode -1)
 (normal-erase-is-backspace-mode 0)
@@ -30,6 +32,8 @@
 (setq vc-follow-symlinks t)
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
 
 ;; configure MELPA repository *melpa.milkbox.net/#/getting-started
 (load "melpa.el") 
@@ -38,6 +42,8 @@
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 ;;(add-to-list 'package-archives-enable-alist
 ;;	     '("melpa" "magit" "git-commit-mode" "git-rebase-mode"))
+(package-initialize)
+(set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
 
 ;; enables showing the matching parentheses
 (setq show-paren-delay 0)
@@ -57,6 +63,7 @@
  '(flymake-errline ((((class color) (background light)) (:background "Red"))))
  '(font-lock-comment-face ((((class color) (min-colors 8) (background light)) (:foreground "red"))))
  '(fundamental-mode-default ((t (:inherit default))))
+ '(helm-selection ((t (:background "black"))))
  '(highlight ((((class color) (min-colors 8)) (:background "white" :foreground "magenta"))))
  '(isearch ((((class color) (min-colors 8)) (:background "yellow" :foreground "black"))))
  '(linum ((t (:foreground "black" :weight bold))))
@@ -64,6 +71,7 @@
  '(secondary-selection ((((class color) (min-colors 8)) (:background "gray" :foreground "cyan"))))
  '(show-paren-match ((((class color) (background light)) (:background "black"))))
  '(vertical-border ((t nil))))
+
 
 ;; ------------
 ;; -- Macros --
@@ -81,6 +89,50 @@
 (global-set-key "\M-d" 'delete-word)
 (global-set-key "\M-h" 'backward-delete-word)
 (global-set-key "\M-u" 'zap-to-char)
+(global-set-key "\C-cf" 'rgrep)
+(global-set-key "\C-c\C-l" 'locate)
+
+
+;; --------------
+;; -- Org Mode --
+;; --------------
+(require 'org)
+(global-set-key "\C-cs" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(setq org-log-done t)
+
+;; --------------
+;; -- Helm --
+;; --------------
+(require 'helm)
+(require 'helm-config)
+;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
+;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+;; cannot change 'helm-command-prefix-key' once 'helm-config' is loaded.
+(global-set-key (kbd "C-c h") 'helm-command-prefix-key)
+(global-unset-key (kbd "C-x c"))
+(global-set-key (kbd "M-x") 'helm-M-x) ; replace default M-x with helm-M-x
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+;; (when (executable-find "ack-grep")
+;;   (setq helm-grep-default-command "ack-grep -Hn --no-group --no-color %e %p %f"
+;;         helm-grep-default-recurse-command "ack-grep -H --no-group --no-color %e %p %f"))
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z") 'helm-select-action) ; list actions using C-z
+
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
+
+(setq helm-split-window-in-side-p            t ; open helm buffer inside current window, not occupy whole other window.
+      helm-move-to-line-cycle-in-source      t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp         t ; search for library in 'require' and 'declare-function' sexp.
+      helm-scroll-amount                     8 ; scroll 8 lines other window using M-<next>/M-<prior>.
+      helm-ff-file-name-histry-use-recentf   t)
+
+(helm-mode 1)
 
 ;; ---------------------------
 ;; -- JS Mode configuration --
@@ -92,52 +144,62 @@
 (add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
+
 ;; --------------------------
 ;; -- Web Mode Config --
 ;; --------------------------
-(add-to-list 'load-path "~/.emacs.d/elpa/web-mode-20131217.1533")
 (require 'web-mode)
-;;(setq web-mode-engines-alist
-;;      '(("web"     . "\\.scss\\'"))
-;;)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.handlebars\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
-;;(add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
+
+;; -------------------------
+;; -- auto-complete Config --
+;; -------------------------
+;; (add-to-list 'load-path "~/.emacs.d/elpa/auto-complete-20141111.2346")
+(require 'auto-complete)
+(global-auto-complete-mode t)
+
 
 ;; -------------------------
 ;; -- SCSS Mode Config --
 ;; -------------------------
 (setq scss-compile-at-save nil)
 
+
 ;; --------------------------
 ;; -- JS2 Config --
 ;; --------------------------
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;; (add-hook 'js-mode-hook 'js2-minor-mode)
+;; (add-hook 'js2-mode-hook 'ac-js2-mode)
+
 
 ;; --------------------------
-;; -- W3M Config --
+;; -- Tern Config --
 ;; --------------------------
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+(eval-after-load 'tern
+  '(progn
+     (require 'tern-auto-complete)
+     (tern-ac-setup)))
 
 
-;; ---------------------------
-;;  -- HTML Multi Web Mode  --
-;; ---------------------------
-;;(require 'multi-web-mode)
-;;(setq mweb-default-major-mode 'html-mode)
-;;(setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-;;                  (js-mode "<script[^>]*>" "</script>")
-;;                  (css-mode "<style[^>]*>" "</style>")))
-;;(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5" "handlebars"))
-;;(multi-web-global-mode 1)
-;;
-;;(require 'handlebars-mode)
+;; --------------------------
+;; -- Custom Config --
+;; --------------------------
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(js-curly-indent-offset 0)
  '(js-expr-indent-offset 4)
+ '(js2-basic-offset 4)
+ '(js2-bounce-indent-p t)
  '(web-mode-code-indent-offset 4)
  '(web-mode-markup-indent-offset 4))
