@@ -5,7 +5,7 @@
 ;; ---------------------
 ;; -- Global Settings --
 ;; ---------------------
-(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/lisp")   
 (add-to-list 'load-path "~/.emacs.d/elpa/")
 (require 'cl)
 (require 'ido)
@@ -30,19 +30,35 @@
 (setq show-trailing-whitespace t)
 (setq suggest-key-bindings t)
 (setq vc-follow-symlinks t)
-(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+(setq create-lockfiles nil)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
 
-;; configure MELPA repository *melpa.milkbox.net/#/getting-started
-(load "melpa.el") 
+;; (setenv
+;;  "PATH" (concat
+;;          "$HOME/.node/bin:"
+;;          "/usr/bin:"
+;;          "/bin:"
+;;          "/usr/sbin:"
+;;          "/sbin:"
+;;          "/usr/local/bin:"
+;;          "/usr/local/git/bin"
+
 (require 'package)
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
-;;(add-to-list 'package-archives-enable-alist
-;;	     '("melpa" "magit" "git-commit-mode" "git-rebase-mode"))
+	     '("melpa" . "http://melpa.milkbox.net/packages/"))
+(setq package-enable-at-startup nil)
 (package-initialize)
+
+(load-theme 'zenburn t)
+
+;; Copy PATH variable using exec-path-from-shell package.
+;; This will allow the Mac OSX Emacs version to have access to PATH.
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
 
 ;; enables showing the matching parentheses
@@ -63,7 +79,6 @@
  '(flymake-errline ((((class color) (background light)) (:background "Red"))))
  '(font-lock-comment-face ((((class color) (min-colors 8) (background light)) (:foreground "red"))))
  '(fundamental-mode-default ((t (:inherit default))))
- '(helm-selection ((t (:background "black"))))
  '(highlight ((((class color) (min-colors 8)) (:background "white" :foreground "magenta"))))
  '(isearch ((((class color) (min-colors 8)) (:background "yellow" :foreground "black"))))
  '(linum ((t (:foreground "black" :weight bold))))
@@ -135,14 +150,21 @@
 (helm-mode 1)
 
 ;; ---------------------------
+;; -- Helm Projectile --
+;; ---------------------------
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+
+;; ---------------------------
 ;; -- JS Mode configuration --
 ;; ---------------------------
-(load "js-config.el")
-(add-to-list 'load-path "~/.emacs.d/jade-mode") ;; github.com/brianc/jade-mode
-(require 'sws-mode)
-(require 'jade-mode)    
-(add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
-(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+;; (load "js-config.el")
+;; (add-to-list 'load-path "~/.emacs.d/jade-mode") ;; github.com/brianc/jade-mode
+;; (require 'sws-mode)
+;; (require 'jade-mode)    
+;; (add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
+;; (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 
 ;; --------------------------
@@ -153,6 +175,7 @@
 (add-to-list 'auto-mode-alist '("\\.handlebars\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;; (add-hoook 'web-mode-hook (lambda () (ember-mode t)))
 
 
 ;; -------------------------
@@ -172,8 +195,9 @@
 ;; --------------------------
 ;; -- JS2 Config --
 ;; --------------------------
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;; (autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+;; (add-hook 'js2-mode-hook' (lambda () (ember-mode t)))
 ;; (add-hook 'js-mode-hook 'js2-minor-mode)
 ;; (add-hook 'js2-mode-hook 'ac-js2-mode)
 
@@ -197,9 +221,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("e80932ca56b0f109f8545576531d3fc79487ca35a9a9693b62bf30d6d08c9aaf" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "31a01668c84d03862a970c471edbd377b2430868eccf5e8a9aec6831f1a0908d" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" default)))
  '(js-curly-indent-offset 0)
  '(js-expr-indent-offset 4)
  '(js2-basic-offset 4)
- '(js2-bounce-indent-p t)
+ '(js2-bounce-indent-p nil)
  '(web-mode-code-indent-offset 4)
  '(web-mode-markup-indent-offset 4))
