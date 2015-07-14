@@ -60,6 +60,7 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 (set-variable 'magit-emacsclient-executable "/usr/local/bin/emacsclient")
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 ;; enables showing the matching parentheses
 (setq show-paren-delay 0)
@@ -213,6 +214,24 @@
      (tern-ac-setup)))
 
 
+;; -------------------------
+;; -- Ediff Config
+;; -------------------------
+;; http://emacswiki.org/emacs/EdiffMode
+;; This should restore window configuration when exiting ediff mode
+(add-hook 'ediff-load-hook
+          (lambda ()
+            
+            (add-hook 'ediff-before-setup-hook
+                      (lambda ()
+                        (setq ediff-saved-window-configuration (current-window-configuration))))
+            
+            (let ((restore-window-configuration
+                   (lambda ()
+                     (set-window-configuration ediff-saved-window-configuration))))
+              (add-hook 'ediff-quit-hook restore-window-configuration 'append)
+              (add-hook 'ediff-suspend-hook restore-window-configuration 'append))))
+
 ;; --------------------------
 ;; -- Custom Config --
 ;; --------------------------
@@ -224,6 +243,8 @@
  '(custom-safe-themes
    (quote
     ("e80932ca56b0f109f8545576531d3fc79487ca35a9a9693b62bf30d6d08c9aaf" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "31a01668c84d03862a970c471edbd377b2430868eccf5e8a9aec6831f1a0908d" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" default)))
+ '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+ '(helm-split-window-in-side-p t)
  '(js-curly-indent-offset 0)
  '(js-expr-indent-offset 4)
  '(js2-basic-offset 4)
