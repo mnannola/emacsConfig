@@ -1,125 +1,128 @@
-git log
-ls
-git status
-git checkout develop
-git pull
-eshell
-eshell exit
-ls
-ls
-ls
-ls
-cd app
-cd lib
-ls
-cd routes
-emacs map.js
-ls
-cd elpa/js2-mode-20131219.658/
-pwd
-cd ..
-cd js2-mode-20131219.658/
-ls
-mv js2-mode.el ../../js2.el
-cd ..
-cd ..
-ls
-emacs init.el
-ls
-emacs
-git status
-git pull
-git status
-git status
-git reset --HARD origin/develop
-git reset --hard origin/develop
-git status
-exit
-node app.js
-node app.js
-node app.js
-..
-cd app
-cd templates/
-ls
-mv index.hbs user.hbs
-ls
-exit
-cd ..
+source .zshrc
+source .zshrc
+source /.zdhtvulimit -n 4096alias br='broccoli serve --port 8080'alias k='killall -9 ruby'
+brew install the_silver_searcher
+ag
+ag -i circle ~/repo/ngam-esnext/app
+/Users/MNannola/repo/ngam-esnext/app/templates/transactions/transfer/type.handlebars
+jshint
+PATH
+$PATH
+node
+npm
 exit
 cd ..
 cd ..
-grep ?
-grep --help
+cd .
+cd ..
+cd ..
+cd ..
+bower install
+curl http://www.google.com
+clear
+ember d model team-to-user
+.git/hooks/commit-msg
+make ex3
+make clean
+make ex3
+rm -f ex3
+make ex3
+./ex3
+rm -f ex3
+make ex3
+./ex3
+rm -f ex3
+make ex3
+./ex3
+./ex3
+curl -O http://valgrind.org/downloads/valgrind-3.6.1.tar.bz2
 ls
-mv artstis.songs.hbs artists.songs.hbs
+md5sum valgrind-3.6.1.tar.bz2
+md5sum
+tar -xjvf valgrind-3.6.1.tar.bz2
+ls
+cd valgrind-3.6.1/
+ls
+ls -a
+ls -v
+ls -l
+./configure
+cd ..
+rm valgrind-3.6.1.tar.bz2
+rmdir valgrind-3.6.1/
+rm -rf valgrind-3.6.1/
+ls
+curl -O http://valgrind.org/downloads/valgrind-3.10.1.tar.bz2
+tar -xjvf valgrind-3.10.1.tar.bz2 
+cd valgrind-3.10.1/
+./configure
+make
+cd ..
+rm valgrind-3.10.1.tar.bz2
+rm -rf valgrind-3.10.1/
+svn co svn://svn.valgrind.org/valgrind/trunk valgrind
+cd valgrind/
+./autogen.sh 
+./configure
+make
+sudo make install
+./make
+make
+./configure
+make
+svn --version
+xcode-select --install
+make
+ls
+sudo make install
+cd ..
+ls
+valgrind ex3.c
+valgrind
+valgrind ./ex3
+valgrind ex3
+valgrind ex3.c
+valgrind
+valgrind ./ex3
+valgrind ./ex3
+rm -f ex3
+make ex3
+valgrind ./ex3
+make ex5
+valgrind ./ex5
+valgrind ./ex5 --track-origins=yes
+valgrind ./ex5
+valgrind ./ex5 --track-origins=yes
+valgrind ./ex5 --track-origins=yes
+valgrind ./ex5
+ssh
+ssh mnannola@aus-lnx-dev-02
+ssh AUSTIN\\mnannola@aus-lnx-dev-02
+ssh AUSTIN//mnannola@aus-lnx-dev-02
+ssh austin\\mnannola@aus-lnx-dev-02
+find . \( q2 \) -ls
+cd .
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+rm -rf 'q2-central'
 ls
 exit
-cd ..
-cd ..
-cd ..
 ls
-cd app
-cd templates
+ls -a
+ls -l
+rm error.log
+chmod error.log 777
+chmod 777 error.log
+sudo chmod 777 error.log
 ls
-mkdir artists
-mv artists.songs.hbs artists/songs.hbs
+ls -a
+ls -l
+rm error.log
+mv error.log error.log.backup
+sudo rm error.log
 ls
-cd artsits
-ls
-cd artists
 ls
 ls
-exit
-ls
-cd artists
-ls
-exit
-cd repo
-ls
-mkdir gam-comps
-ls
-cd gam-comps/
-ls
-bower install bootstrap
-ls
-cd bower_components/
-ls
-cd boot
-cd bootstrap/
-ls
-cd js
-ls
-cd ..
-head dist/
-cd dist
-ls
-cd js
-ls
-cd ..
-cd ../../..
-ls
-cd bower_components/
-ls
-cd jq
-cd jquery/
-ls
-cd ..
-ls
-cd bootstrap/
-ls
-cd less
-ls
-cd dist
-cd ..
-ls
-cd dist
-ls
-cd css
-ls
-git status
-git remotes -v
-git remote -v
-exit
-git diff RET-4180 develop reset_password_controller.js 
-exit 

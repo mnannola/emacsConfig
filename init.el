@@ -160,7 +160,7 @@
 ;; ---------------------------
 ;; -- JS Mode configuration --
 ;; ---------------------------
-;; (load "js-config.el")
+(load "js-config.el")
 ;; (add-to-list 'load-path "~/.emacs.d/jade-mode") ;; github.com/brianc/jade-mode
 ;; (require 'sws-mode)
 ;; (require 'jade-mode)    
@@ -176,6 +176,7 @@
 (add-to-list 'auto-mode-alist '("\\.handlebars\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.eex\\'" . web-mode))
 ;; (add-hoook 'web-mode-hook (lambda () (ember-mode t)))
 
 
@@ -202,16 +203,27 @@
 ;; (add-hook 'js-mode-hook 'js2-minor-mode)
 ;; (add-hook 'js2-mode-hook 'ac-js2-mode)
 
+;; --------------------------
+;; -- JS Comint Config --
+;; --------------------------
+;; (require 'js-comint)
+;; (add-hook 'js2-mode-hook '(lambda ()
+;; 			    (local-set-key "\C-x\C-e" 'js-send-last-sexp)
+;; 			    (local-set-key "\C-\M-x" 'js-send-last-sexp-and-go)
+;; 			    (local-set-key "\C-cb" 'js-send-buffer)
+;; 			    (local-set-key "\C-c\C-b" 'js-send-buffer-and-go)
+;; 			    (local-set-key "\C-cl" 'js-load-file-and-go)
+;; 			    ))
 
 ;; --------------------------
 ;; -- Tern Config --
 ;; --------------------------
-(add-hook 'js-mode-hook (lambda () (tern-mode t)))
-(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-(eval-after-load 'tern
-  '(progn
-     (require 'tern-auto-complete)
-     (tern-ac-setup)))
+;; (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+;; (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+;; (eval-after-load 'tern
+;;   '(progn
+;;      (require 'tern-auto-complete)
+;;      (tern-ac-setup)))
 
 
 ;; -------------------------
