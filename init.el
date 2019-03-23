@@ -13,8 +13,8 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
-(require 'linum)
-(require 'smooth-scrolling)
+;; (require 'linum)
+;; (require 'smooth-scrolling)
 (require 'whitespace)
 (require 'dired-x)
 (require 'compile)
@@ -49,11 +49,51 @@
 
 (require 'package)
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/"))
+	     '("melpa" . "http://melpa.org/packages/") t)
 (setq package-enable-at-startup nil)
 (package-initialize)
 
+
+;; ----------------------
+;; -- Install Packages --
+;; ----------------------
+
+(defvar myPackages
+  '(helm
+    helm-projectile
+    web-mode
+    js-comint
+    zenburn-theme
+    auto-complete
+    magit
+    elpy
+    editorconfig))
+
+(mapc #'(lambda (package)
+          (unless (package-installed-p package)
+            (package-install package)))
+      myPackages)
+
+;; ------------------------
+;; Basic Conifg
+;; ------------------------
 (load-theme 'zenburn t)
+
+;; -----------------
+;; Editor Config
+;; -----------------
+(require 'editorconfig)
+(editorconfig-mode 1)
+
+;; -----------------
+;; Python (elpy)
+;; -----------------
+(elpy-enable)
+
+;; -----------------
+;; Magit
+;; -----------------
+(global-set-key (kbd "C-x g") 'magit-status)
 
 ;; Copy PATH variable using exec-path-from-shell package.
 ;; This will allow the Mac OSX Emacs version to have access to PATH.
@@ -256,10 +296,22 @@
    (quote
     ("e80932ca56b0f109f8545576531d3fc79487ca35a9a9693b62bf30d6d08c9aaf" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "31a01668c84d03862a970c471edbd377b2430868eccf5e8a9aec6831f1a0908d" "1297a022df4228b81bc0436230f211bad168a117282c20ddcba2db8c6a200743" default)))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
- '(helm-split-window-in-side-p t)
+ '(elpy-rpc-python-command "python3")
+ '(grep-find-ignored-directories
+   (quote
+    ("SCCS" "RCS" "CVS" "MCVS" ".src" ".svn" ".git" ".hg" ".bzr" "_MTN" "_darcs" "{arch}" "dist")))
+ '(helm-split-window-inside-p t)
  '(js-curly-indent-offset 0)
  '(js-expr-indent-offset 4)
  '(js2-basic-offset 4)
  '(js2-bounce-indent-p nil)
+ '(package-selected-packages
+   (quote
+    (ember-mode editorconfig helm-ag js2-mode magit zenburn-theme web-mode js-comint helm-projectile exec-path-from-shell auto-complete)))
+ '(projectile-globally-ignored-directories
+   (quote
+    (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "dist" "node_modules" "bower_components")))
+ '(python-shell-interpreter "python3")
+ '(tramp-verbose 10)
  '(web-mode-code-indent-offset 4)
  '(web-mode-markup-indent-offset 4))
