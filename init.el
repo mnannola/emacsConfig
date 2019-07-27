@@ -106,8 +106,9 @@
 (setq show-paren-delay 0)
 (show-paren-mode t)
 (setq show-paren-style 'expression)
-(set-face-attribute 'show-paren-match-face nil
-		    :weight 'bold :underline t :overline nil :slant 'normal)
+
+(set-face-attribute 'show-paren-match nil
+		    :weight 'extra-bold)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -117,7 +118,7 @@
  '(default ((t (:inherit autoface-default :strike-through nil :underline nil :slant normal :weight normal :height 120 :width normal :family "monaco"))))
  '(column-marker-1 ((t (:background "red"))))
  '(diff-added ((t (:foreground "cyan"))))
- '(flymake-errline ((((class color) (background light)) (:background "Red"))))
+ '(flymake-error ((((class color) (background light)) (:background "Red"))))
  '(font-lock-comment-face ((((class color) (min-colors 8) (background light)) (:foreground "red"))))
  '(fundamental-mode-default ((t (:inherit default))))
  '(highlight ((((class color) (min-colors 8)) (:background "white" :foreground "magenta"))))
@@ -196,6 +197,9 @@
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
+(global-set-key (kbd "C-c p p") 'helm-projectile-switch-project)
+(global-set-key (kbd "C-c p f") 'helm-projectile-find-file)
+(global-set-key (kbd "C-c p s s") 'helm-projectile-ag)
 
 ;; ---------------------------
 ;; -- JS Mode configuration --
@@ -307,11 +311,11 @@
  '(js2-bounce-indent-p nil)
  '(package-selected-packages
    (quote
-    (ember-mode editorconfig helm-ag js2-mode magit zenburn-theme web-mode js-comint helm-projectile exec-path-from-shell auto-complete)))
+    (yaml-mode vue-mode js2-mode helm async ember-mode editorconfig helm-ag magit zenburn-theme js-comint helm-projectile exec-path-from-shell auto-complete)))
  '(projectile-globally-ignored-directories
    (quote
     (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "dist" "node_modules" "bower_components")))
  '(python-shell-interpreter "python3")
- '(tramp-verbose 10)
+ '(tramp-verbose 10 nil (tramp))
  '(web-mode-code-indent-offset 4)
  '(web-mode-markup-indent-offset 4))
